@@ -85,7 +85,7 @@ class Server {
    * memory.
    * @param {Object} key  - The key as a file in memory
    * @param {Object} cert - The cert as a file in memory
-   * @returns {Object} The http2 server
+   * @returns {Object}    - The http2 server
    */
   _createServer({ key, cert }) {
     return http2.createServer(
@@ -97,7 +97,7 @@ class Server {
    * Returns true if the fileName is a valid static file on the file system
    * and is part of the static directory. Otherwise returns false.
    * @param {String} fileName - The string fileName
-   * @returns {Boolean} True if the file exists on the file system, otherwise false
+   * @returns {Boolean}       - True if the file exists on the file system, otherwise false
    */
   _isValidStaticFile({ fileName }) {
     return (

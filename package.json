@@ -1,16 +1,16 @@
 {
-  "name": "http2-static-server-seed",
+  "name": "threejs-examples-with-es6",
   "version": "1.0.0",
-  "description": "http2 static server seed project",
+  "description": "threejs examples with es6 syntax",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "lint": "eslint index.js src test",
+    "lint": "eslint index.js src test public/js",
     "start": "node index.js"
   },
   "author": "Frank Hassanabad",
   "license": "MIT",
-  "repository": "https://github.com/FrankHassanabad/http2-static-server-seed.git",
+  "repository": "https://github.com/FrankHassanabad/threejs-examples-with-es6.git",
   "devDependencies": {
     "chai": "^3.5.0",
     "esdoc": "^0.4.8",

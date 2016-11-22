@@ -24,6 +24,11 @@ Obj Loader With Material
 
 ![OBj Loader With Material](public/assets/objloader.png?raw=true)
 
+Ply Loader
+=======
+
+![OBj Loader With Material](public/assets/poly.png?raw=true)
+
 Instructions
 =======
 

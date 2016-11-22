@@ -11,8 +11,16 @@ class CameraRendererUtils { // eslint-disable-line no-unused-vars
   }
 
   addListeners() {
-    document.addEventListener('mousemove', (event) => { this.onDocumentMouseMove(event); }, false);
+    this.addMouseMoveListener();
+    this.addResizeListener();
+  }
+
+  addResizeListener() {
     window.addEventListener('resize', () => this.onWindowResize(), false);
+  }
+
+  addMouseMoveListener() {
+    document.addEventListener('mousemove', event => this.onDocumentMouseMove(event), false);
   }
 
   onWindowResize() {
@@ -33,8 +41,12 @@ class CameraRendererUtils { // eslint-disable-line no-unused-vars
     this._renderer.render(this._scene, this._camera);
   }
 
-  animate() {
-    requestAnimationFrame(() => this.animate());
-    this.render();
+  animate({
+    render,
+  } = {
+    render : () => this.render(),
+  }) {
+    requestAnimationFrame(() => this.animate({ render }));
+    render();
   }
 }

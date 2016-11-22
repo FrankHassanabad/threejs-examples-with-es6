@@ -15,12 +15,12 @@ const init = () => {
   scene.add(directionalLight);
 
   // manager to track progress of model loading
-  const manager = new THREE.LoadingManager();
+  const manager      = new THREE.LoadingManager();
   manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
 
   THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
   const mtlLoader = new THREE.MTLLoader(manager);
-  const xhrutils = new XhrUtils();
+  const xhrutils  = new XhrUtils();
 
   // texture and model loading
   mtlLoader.setPath('models/male02/textures/');
@@ -32,7 +32,7 @@ const init = () => {
     objLoader.load('male02.obj', (object) => { // eslint-disable-line no-param-reassign
       object.position.y = -95; // eslint-disable-line no-param-reassign
       scene.add(object);
-    }, xhrutils.onProgress, xhrutils.onProgress);
+    }, xhrutils.onProgress, xhrutils.onError);
   });
 
   // create the renderer

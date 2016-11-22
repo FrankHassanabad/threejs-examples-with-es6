@@ -14,7 +14,7 @@ const init = () => {
   scene.add(directionalLight);
 
   // manager to track progress of model loading
-  const manager = new THREE.LoadingManager();
+  const manager      = new THREE.LoadingManager();
   manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
 
   const texture  = new THREE.Texture();
@@ -37,7 +37,7 @@ const init = () => {
     });
     object.position.y = -95; // eslint-disable-line no-param-reassign
     scene.add(object);
-  }, xhrutils.onProgress, xhrutils.onProgress);
+  }, xhrutils.onProgress, xhrutils.onError);
 
   // create the renderer
   const renderer = new THREE.WebGLRenderer({ alpha: true });

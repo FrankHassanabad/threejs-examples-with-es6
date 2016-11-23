@@ -1,21 +1,5 @@
 'use strict';
 
-const addShadowedLight = ({ x, y, z, color, intensity, scene }) => {
-  const directionalLight = new THREE.DirectionalLight(color, intensity);
-  directionalLight.position.set(x, y, z);
-  directionalLight.castShadow            = true;
-  directionalLight.shadow.camera.left    = -1;
-  directionalLight.shadow.camera.right   = 1;
-  directionalLight.shadow.camera.top     = 1;
-  directionalLight.shadow.camera.bottom  = -1;
-  directionalLight.shadow.camera.near    = 1;
-  directionalLight.shadow.camera.far     = 4;
-  directionalLight.shadow.mapSize.width  = 1024;
-  directionalLight.shadow.mapSize.height = 1024;
-  directionalLight.shadow.bias           = -0.005;
-  scene.add(directionalLight);
-};
-
 const init = () => {
   // camera initial position and setup
   const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 10000);

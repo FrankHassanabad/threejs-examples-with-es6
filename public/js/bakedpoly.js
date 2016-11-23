@@ -54,7 +54,7 @@ const init = () => {
   renderer.shadowMap.enabled            = true;
   renderer.shadowMap.renderReverseSided = false;
 
-  // camera utils and init of listeners
+  // setup camera and render to the DOM
   const cameraRendererUtils = new CameraRendererUtils({ camera, renderer, scene });
   cameraRendererUtils.addResizeListener();
   cameraRendererUtils.animate({
@@ -63,11 +63,7 @@ const init = () => {
       renderer.render(scene, camera);
     },
   });
-
-  // create the container and add the renderer
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
+  cameraRendererUtils.addRendererToDocument({ document });
 };
 
 // On page load, initialize

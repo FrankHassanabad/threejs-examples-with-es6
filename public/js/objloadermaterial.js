@@ -14,11 +14,11 @@ const init = () => {
   directionalLight.position.set(0, 0, 1).normalize();
   scene.add(directionalLight);
 
+  // texture and model loading
   THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
-  const loadingManager =  CameraRendererUtils.createLoadingManager();
+  const loadingManager = CameraRendererUtils.createLoadingManager();
   const mtlLoader      = new THREE.MTLLoader(loadingManager);
 
-  // texture and model loading
   mtlLoader.setPath('models/male02/textures/');
   mtlLoader.load('male02_dds.mtl', (materials) => {
     materials.preload();
@@ -36,15 +36,11 @@ const init = () => {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // camera utils and init of listeners
+  // setup camera and render to the DOM
   const cameraRendererUtils = new CameraRendererUtils({ camera, renderer, scene });
   cameraRendererUtils.addListeners();
   cameraRendererUtils.animate();
-
-  // create the container and add the renderer
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
+  cameraRendererUtils.addRendererToDocument({ document });
 };
 
 // On page load, initialize

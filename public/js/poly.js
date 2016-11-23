@@ -24,8 +24,7 @@ const init = () => {
 
   // scene and lighting
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0x72645b, 2, 15);
-
+  scene.fog   = new THREE.Fog(0x72645b, 2, 15);
 
   // create the ground and add it to the scene
   const plane = new THREE.Mesh(
@@ -36,9 +35,8 @@ const init = () => {
   plane.receiveShadow = true;
   scene.add(plane);
 
-  // PLY file loading
-  const loader   = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
-
+  // PLY load dolphins
+  const loader = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
   loader.load('models/dolphins/dolphins.ply', (geometry) => {
     geometry.computeVertexNormals();
     const material = new THREE.MeshStandardMaterial({
@@ -56,9 +54,9 @@ const init = () => {
     scene.add(mesh);
   }, XhrUtils.onProgress, XhrUtils.onError);
 
+  // PLY load Lucy
   loader.load('models/lucy/Lucy100k.ply', (geometry) => {
     geometry.computeVertexNormals();
-
     const material = new THREE.MeshStandardMaterial({
       color   : 0x0055ff,
       shading : THREE.FlatShading,
@@ -84,12 +82,12 @@ const init = () => {
   renderer.setClearColor(scene.fog.color);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.gammaInput = true;
+  renderer.gammaInput  = true;
   renderer.gammaOutput = true;
-  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.enabled            = true;
   renderer.shadowMap.renderReverseSided = false;
 
-  // camera utils and init of listeners
+  // setup camera and render to the DOM
   const cameraRendererUtils = new CameraRendererUtils({ camera, renderer, scene });
   cameraRendererUtils.addResizeListener();
   cameraRendererUtils.animate({
@@ -101,11 +99,7 @@ const init = () => {
       renderer.render(scene, camera);
     },
   });
-
-  // create the container and add the renderer
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
+  cameraRendererUtils.addRendererToDocument({ document });
 };
 
 // On page load, initialize

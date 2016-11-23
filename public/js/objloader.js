@@ -13,10 +13,9 @@ const init = () => {
   scene.add(ambient);
   scene.add(directionalLight);
 
-  const texture = new THREE.Texture();
-
   // image to wrap the model (jpg)
-  const imageLoader  = new THREE.ImageLoader(CameraRendererUtils.createLoadingManager());
+  const imageLoader = new THREE.ImageLoader(CameraRendererUtils.createLoadingManager());
+  const texture     = new THREE.Texture();
   imageLoader.load('models/male02/textures/UV_Grid_Sm.jpg', (image) => {
     texture.image       = image;
     texture.needsUpdate = true;
@@ -39,15 +38,11 @@ const init = () => {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // camera utils and init of listeners
+  // setup camera and render to the DOM
   const cameraRendererUtils = new CameraRendererUtils({ camera, renderer, scene });
   cameraRendererUtils.addListeners();
   cameraRendererUtils.animate();
-
-  // create the container and add the renderer
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
+  cameraRendererUtils.addRendererToDocument({ document });
 };
 
 // On page load, initialize

@@ -47,6 +47,12 @@ class CameraRendererUtils { // eslint-disable-line no-unused-vars
     return manager;
   }
 
+  addRendererToDocument({ document }) {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    container.appendChild(this._renderer.domElement);
+  }
+
   animate({
     render,
   } = {

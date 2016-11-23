@@ -25,13 +25,8 @@ const init = () => {
   plane.receiveShadow = true;
   scene.add(plane);
 
-  // manager to track progress of model loading
-  const manager      = new THREE.LoadingManager();
-  manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
-
   // PLY file loading
-  const loader    = new THREE.PLYLoader(manager);
-  const xhrutils  = new XhrUtils();
+  const loader    = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
 
   // fully baked model loading
   loader.load('models/monu9/obj/monu9.bake.ply', (obj) => {
@@ -48,7 +43,7 @@ const init = () => {
     mesh.receiveShadow = true;
     mesh.scale.multiplyScalar(0.5);
     scene.add(mesh);
-  }, xhrutils.onProgress, xhrutils.onError);
+  }, XhrUtils.onProgress, XhrUtils.onError);
 
   // create and renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });

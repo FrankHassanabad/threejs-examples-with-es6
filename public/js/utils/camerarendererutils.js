@@ -41,6 +41,12 @@ class CameraRendererUtils { // eslint-disable-line no-unused-vars
     this._renderer.render(this._scene, this._camera);
   }
 
+  static createLoadingManager() {
+    const manager      = new THREE.LoadingManager();
+    manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
+    return manager;
+  }
+
   animate({
     render,
   } = {

@@ -13,22 +13,17 @@ const init = () => {
   scene.add(ambient);
   scene.add(directionalLight);
 
-  // manager to track progress of model loading
-  const manager      = new THREE.LoadingManager();
-  manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
-
-  const texture  = new THREE.Texture();
-  const xhrutils = new XhrUtils();
+  const texture = new THREE.Texture();
 
   // image to wrap the model (jpg)
-  const imageLoader  = new THREE.ImageLoader(manager);
+  const imageLoader  = new THREE.ImageLoader(CameraRendererUtils.createLoadingManager());
   imageLoader.load('models/male02/textures/UV_Grid_Sm.jpg', (image) => {
     texture.image       = image;
     texture.needsUpdate = true;
-  }, xhrutils.onProgress, xhrutils.onError);
+  }, XhrUtils.onProgress, XhrUtils.onError);
 
   // load the 3D model (obj)
-  const objLoader = new THREE.OBJLoader(manager);
+  const objLoader = new THREE.OBJLoader(CameraRendererUtils.createLoadingManager());
   objLoader.load('models/male02/obj/male02.obj', (object) => {
     object.traverse((child) => {
       if (child instanceof THREE.Mesh) {
@@ -37,7 +32,7 @@ const init = () => {
     });
     object.position.y = -95; // eslint-disable-line no-param-reassign
     scene.add(object);
-  }, xhrutils.onProgress, xhrutils.onError);
+  }, XhrUtils.onProgress, XhrUtils.onError);
 
   // create the renderer
   const renderer = new THREE.WebGLRenderer({ alpha: true });

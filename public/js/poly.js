@@ -36,13 +36,9 @@ const init = () => {
   plane.receiveShadow = true;
   scene.add(plane);
 
-  // manager to track progress of model loading
-  const manager      = new THREE.LoadingManager();
-  manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
-
   // PLY file loading
-  const loader   = new THREE.PLYLoader(manager);
-  const xhrutils = new XhrUtils();
+  const loader   = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
+
   loader.load('models/dolphins/dolphins.ply', (geometry) => {
     geometry.computeVertexNormals();
     const material = new THREE.MeshStandardMaterial({
@@ -58,7 +54,7 @@ const init = () => {
     mesh.scale.multiplyScalar(0.001);
 
     scene.add(mesh);
-  }, xhrutils.onProgress, xhrutils.onError);
+  }, XhrUtils.onProgress, XhrUtils.onError);
 
   loader.load('models/lucy/Lucy100k.ply', (geometry) => {
     geometry.computeVertexNormals();
@@ -76,7 +72,7 @@ const init = () => {
     mesh.receiveShadow = true;
     mesh.scale.multiplyScalar(0.0006);
     scene.add(mesh);
-  }, xhrutils.onProgress, xhrutils.onError);
+  }, XhrUtils.onProgress, XhrUtils.onError);
 
   // Lights
   scene.add(new THREE.HemisphereLight(0x443333, 0x111122));

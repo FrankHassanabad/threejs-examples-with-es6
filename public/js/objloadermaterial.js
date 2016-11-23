@@ -14,25 +14,21 @@ const init = () => {
   directionalLight.position.set(0, 0, 1).normalize();
   scene.add(directionalLight);
 
-  // manager to track progress of model loading
-  const manager      = new THREE.LoadingManager();
-  manager.onProgress = (item, loaded, total) => console.log(item, loaded, total);
-
   THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
-  const mtlLoader = new THREE.MTLLoader(manager);
-  const xhrutils  = new XhrUtils();
+  const loadingManager =  CameraRendererUtils.createLoadingManager();
+  const mtlLoader      = new THREE.MTLLoader(loadingManager);
 
   // texture and model loading
   mtlLoader.setPath('models/male02/textures/');
   mtlLoader.load('male02_dds.mtl', (materials) => {
     materials.preload();
-    const objLoader = new THREE.OBJLoader(manager);
+    const objLoader = new THREE.OBJLoader(loadingManager);
     objLoader.setMaterials(materials);
     objLoader.setPath('models/male02/obj/');
     objLoader.load('male02.obj', (object) => { // eslint-disable-line no-param-reassign
       object.position.y = -95; // eslint-disable-line no-param-reassign
       scene.add(object);
-    }, xhrutils.onProgress, xhrutils.onError);
+    }, XhrUtils.onProgress, XhrUtils.onError);
   });
 
   // create the renderer

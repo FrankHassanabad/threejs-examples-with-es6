@@ -1,6 +1,7 @@
 'use strict';
 
 class XhrUtils { // eslint-disable-line no-unused-vars
+
   static onProgress(xhr) {
     if (xhr.lengthComputable) {
       const percentComplete = (xhr.loaded / xhr.total) * 100;

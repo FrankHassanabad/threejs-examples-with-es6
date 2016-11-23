@@ -29,6 +29,11 @@ Ply Loader
 
 ![OBj Loader With Material](public/assets/poly.png?raw=true)
 
+Baked Ply Loader with Orbit Controls
+=======
+
+![OBj Loader With Material](public/assets/bakedpoly.png?raw=true)
+
 Instructions
 =======
 

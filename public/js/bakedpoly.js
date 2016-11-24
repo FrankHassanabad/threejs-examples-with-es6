@@ -26,7 +26,7 @@ const init = () => {
   scene.add(plane);
 
   // PLY file loading
-  const loader    = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
+  const loader = new THREE.PLYLoader(CameraRendererUtils.createLoadingManager());
 
   // fully baked model loading
   loader.load('models/monu9/obj/monu9.bake.ply', (obj) => {

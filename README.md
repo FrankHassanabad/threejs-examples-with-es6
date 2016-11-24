@@ -34,6 +34,11 @@ Baked Ply Loader with Orbit Controls
 
 ![OBj Loader With Material](public/assets/bakedpoly.png?raw=true)
 
+Voxel Obj Loader with Material and Orbit Controls
+=======
+
+![OBj Loader With Material](public/assets/bakedpoly.png?raw=true)
+
 Instructions
 =======
 

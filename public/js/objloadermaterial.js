@@ -10,22 +10,21 @@ const init = () => {
   const scene            = new THREE.Scene();
   const ambient          = new THREE.AmbientLight(0x404040);
   const directionalLight = new THREE.DirectionalLight(0xffeedd);
-  scene.add(ambient);
   directionalLight.position.set(0, 0, 1).normalize();
+  scene.add(ambient);
   scene.add(directionalLight);
 
   // texture and model loading
   THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
-  const loadingManager = CameraRendererUtils.createLoadingManager();
-  const mtlLoader      = new THREE.MTLLoader(loadingManager);
+  const mtlLoader = new THREE.MTLLoader(CameraRendererUtils.createLoadingManager());
 
   mtlLoader.setPath('models/male02/textures/');
   mtlLoader.load('male02_dds.mtl', (materials) => {
     materials.preload();
-    const objLoader = new THREE.OBJLoader(loadingManager);
+    const objLoader = new THREE.OBJLoader(CameraRendererUtils.createLoadingManager());
     objLoader.setMaterials(materials);
     objLoader.setPath('models/male02/obj/');
-    objLoader.load('male02.obj', (object) => { // eslint-disable-line no-param-reassign
+    objLoader.load('male02.obj', (object) => {
       object.position.y = -95; // eslint-disable-line no-param-reassign
       scene.add(object);
     }, XhrUtils.onProgress, XhrUtils.onError);

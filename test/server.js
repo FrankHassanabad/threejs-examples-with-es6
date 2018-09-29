@@ -13,14 +13,10 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 // Stub fs reads and http2 create server
-const readFileSyncStub = sinon.stub().returns('');
 const createServerStub = sinon.stub().returns({});
 
 proxyquire('../src/server', {
-  fs : {
-    readFileSync : readFileSyncStub,
-  },
-  http2 : {
+  http : {
     createServer : createServerStub,
   },
 });
@@ -29,7 +25,6 @@ const Server = require('../src/server');
 
 describe('server', () => {
   afterEach(() => {
-    readFileSyncStub.reset();
     createServerStub.reset();
   });
 
@@ -40,11 +35,6 @@ describe('server', () => {
     expect(new Server()).to.be.a('object'));
 
   describe('#constructor', () => {
-    it('should read from the file system twice on instantiation', () => {
-      const server = new Server();
-      expect(readFileSyncStub).to.have.been.calledTwice;
-    });
-
     it('should call create server once on instantiation', () => {
       const server = new Server();
       expect(createServerStub).to.have.been.calledOnce;
@@ -61,12 +51,6 @@ describe('server', () => {
 
     it('should take a different static dir', () =>
       expect(new Server({ staticDir: 'somethingelse' })._staticDir).to.eql('somethingelse'));
-  });
-
-  describe('#_readKeyCert', () => {
-    it('should return an object with key and cert', () => {
-      expect(new Server()._readKeyCert({ key: 'key', cert: 'cert' })).eql({ key : '', cert: '' });
-    });
   });
 
   describe('#_isValidStaticFile', () => {

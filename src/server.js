@@ -1,7 +1,7 @@
 'use strict';
 
 const fs    = require('fs');
-const http2 = require('http2');
+const http = require('http');
 const mime  = require('mime');
 const path  = require('path');
 
@@ -15,18 +15,14 @@ class Server {
    * Everything is optional with defaults.
    * @param {Number} port      - Port number
    * @param {String} staticDir - Directory location of the static files
-   * @param {String} key       - File Location of the private key
-   * @param {cert}   cert      - File Location of the public certificate
    */
-  constructor({ port, staticDir, key, cert } = {
+  constructor({ port, staticDir } = {
     port      : 8080,
     staticDir : path.join(__dirname, '../public'),
-    key       : path.join(__dirname, '../certs/key.pem'),
-    cert      : path.join(__dirname, '../certs/cert.pem'),
   }) {
     this._port      = port;
     this._staticDir = staticDir;
-    this._http2     = this._createServer({ key, cert });
+    this._http      = this._createServer();
   }
 
   /**
@@ -68,29 +64,12 @@ class Server {
   }
 
   /**
-   * Given a key and certificate this will return an object with the
-   * key and certificate read from the file system.
-   * @param {String} res - The HTTP response
-   * @returns {Object}   - The key and certificate file read into memory
-   */
-  _readKeyCert({ key, cert }) {
-    return {
-      key  : fs.readFileSync(key),
-      cert : fs.readFileSync(cert),
-    };
-  }
-
-  /**
    * Creates a server given the key and certificate file object read into
    * memory.
-   * @param {Object} key  - The key as a file in memory
-   * @param {Object} cert - The cert as a file in memory
-   * @returns {Object}    - The http2 server
+   * @returns {Object} - The http server
    */
-  _createServer({ key, cert }) {
-    return http2.createServer(
-        this._readKeyCert({ key, cert }),
-        (req, res) => this._onReq({ req, res }));
+  _createServer() {
+    return http.createServer((req, res) => this._onReq({ req, res }));
   }
 
   /**
@@ -120,7 +99,7 @@ class Server {
    * @returns{void}
    */
   listen() {
-    this._http2.listen(this._port);
+    this._http.listen(this._port);
   }
 
 }

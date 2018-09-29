@@ -57,7 +57,7 @@ Server listening on port: 8080
 
 Open master index.html with all links to examples
 ```
-open https://localhost:8080/index.html
+open http://localhost:8080/index.html
 ```
 
 Add new examples and toys you want to the public folders.

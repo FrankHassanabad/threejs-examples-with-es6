@@ -4,7 +4,6 @@
  * Simple utils for console logging the onProgress and any onErrors that happen.
  */
 class XhrUtils { // eslint-disable-line no-unused-vars
-
   /**
    * onProgress of the Xhr loading where it console logs the percent downloaded
    * @param {Object} xhr The xhr object

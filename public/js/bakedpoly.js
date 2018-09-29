@@ -19,7 +19,8 @@ const init = () => {
   // initial ground white plane for the scene
   const plane = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(40, 40),
-    new THREE.MeshPhongMaterial());
+    new THREE.MeshPhongMaterial() // eslint-disable-line
+  );
   plane.rotation.x    = -Math.PI / 2;
   plane.position.y    = -0.5;
   plane.receiveShadow = true;

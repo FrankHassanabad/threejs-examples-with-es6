@@ -1,15 +1,14 @@
 'use strict';
 
-const fs    = require('fs');
+const fs   = require('fs');
 const http = require('http');
-const mime  = require('mime');
-const path  = require('path');
+const mime = require('mime');
+const path = require('path');
 
 /**
  * Constructs a simple server that serves up static HTML files.
  */
 class Server {
-
   /**
    * Constructs the Server given a port, static directory, key, and cert.
    * Everything is optional with defaults.
@@ -49,7 +48,7 @@ class Server {
    * @returns {void}
    */
   _respondFile({ res, fileName }) {
-    res.writeHead(200, { 'Content-Type' : mime.lookup(fileName) });
+    res.writeHead(200, { 'Content-Type' : mime.getType(fileName) });
     fs.createReadStream(fileName).pipe(res).on('finish', res.end);
   }
 
@@ -80,9 +79,9 @@ class Server {
    */
   _isValidStaticFile({ fileName }) {
     return (
-      fileName.indexOf(this._staticDir) === 0 &&
-      fs.existsSync(fileName) &&
-      fs.statSync(fileName).isFile()
+      fileName.indexOf(this._staticDir) === 0
+      && fs.existsSync(fileName)
+      && fs.statSync(fileName).isFile()
     );
   }
 
@@ -101,7 +100,6 @@ class Server {
   listen() {
     this._http.listen(this._port);
   }
-
 }
 
 module.exports = Server;

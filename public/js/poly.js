@@ -1,6 +1,8 @@
 'use strict';
 
-const addShadowedLight = ({ x, y, z, color, intensity, scene }) => {
+const addShadowedLight = ({
+  x, y, z, color, intensity, scene,
+}) => {
   const directionalLight = new THREE.DirectionalLight(color, intensity);
   directionalLight.position.set(x, y, z);
   directionalLight.castShadow            = true;
@@ -29,7 +31,8 @@ const init = () => {
   // create the ground and add it to the scene
   const plane = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(40, 40),
-    new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 }));
+    new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 }) // eslint-disable-line
+  );
   plane.rotation.x    = -Math.PI / 2;
   plane.position.y    = -0.5;
   plane.receiveShadow = true;
@@ -74,8 +77,12 @@ const init = () => {
 
   // Lights
   scene.add(new THREE.HemisphereLight(0x443333, 0x111122));
-  addShadowedLight({ x: 1, y: 1, z: 1, color: 0xffffff, intensity: 1.35, scene });
-  addShadowedLight({ x: 0.5, y: 1, z: -1, color: 0xffaa00, intensity: 1, scene });
+  addShadowedLight({
+    x: 1, y: 1, z: 1, color: 0xffffff, intensity: 1.35, scene,
+  });
+  addShadowedLight({
+    x: 0.5, y: 1, z: -1, color: 0xffaa00, intensity: 1, scene,
+  });
 
   // renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true });

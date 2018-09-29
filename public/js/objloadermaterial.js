@@ -44,4 +44,3 @@ const init = () => {
 
 // On page load, initialize
 window.onload = () => init();
-

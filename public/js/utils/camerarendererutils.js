@@ -5,7 +5,6 @@
  * repeating code.
  */
 class CameraRendererUtils { // eslint-disable-line no-unused-vars
-
   /**
    * Construct the render utilities with a camera, scene, and renderer. Sets the mouseX and the
    * mouseY to zero by default.
